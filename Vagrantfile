@@ -52,6 +52,8 @@ Vagrant::Config.run do |config|
     chef.cookbooks_path = "cookbooks"
     chef.add_recipe "apt"
     chef.add_recipe "build-essential"
+    chef.add_recipe "packages"
+    chef.add_recipe "solr"
     chef.add_recipe "chef::bootstrap_server"
 
     # You may also specify custom JSON attributes:
