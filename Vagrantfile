@@ -4,7 +4,8 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "vagrant-natty-amd64-05-04-2011"
+  config.vm.box = "vagrant-natty-amd64-ruby-05-06-2011"
+  config.vm.box_url = "http://irulan.homeunix.net/vagrant-natty-amd64-ruby-05-06-2011.box"
   config.vm.customize do |vm|
     vm.memory_size = 2048
   end
