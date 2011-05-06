@@ -5,6 +5,9 @@ Vagrant::Config.run do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "vagrant-natty-amd64-05-04-2011"
+  config.vm.customize do |vm|
+    vm.memory_size = 2048
+  end
 
   # The url from where the 'config.vm.box' box will be fetched if it
   # doesn't already exist on the user's system.
@@ -50,16 +53,12 @@ Vagrant::Config.run do |config|
   #
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = "cookbooks"
-    chef.add_recipe "apt"
-    chef.add_recipe "build-essential"
-    chef.add_recipe "packages"
-    chef.add_recipe "solr"
-    chef.add_recipe "chef::bootstrap_server"
+    chef.add_recipe "chef-server::rubygems-install"
 
     # You may also specify custom JSON attributes:
-    chef.json.merge!({ :chef => {
+    chef.json.merge!({ :chef_server => {
       :server_url => "http://localhost.localdomain:4000",
-      :webui_enabled => true,
+      :webui_enabled => true
       }
     })
   end
