@@ -20,7 +20,7 @@
 # limitations under the License.
 
 # we have pre-built packages for the following platforms/versions
-deb_exists = (node['platform'] == 'ubuntu' && ["lucid", "maverick"].include?(node['lsb']['codename'])) ||
+deb_exists = (node['platform'] == 'ubuntu' && ["lucid", "maverick","natty"].include?(node['lsb']['codename'])) ||
              (node['platform'] == 'debian' && node["lsb"]["codename"] == "lenny")
 
 # we have tested building from source on the following platforms
@@ -30,15 +30,15 @@ if deb_exists
   include_recipe 'apt'
 
   # add Opscode's apt repo to sources
-  apt_repository "opscode" do
-    uri "http://apt.opscode.com"
-    components ["main"]
-    distribution node['lsb']['codename']
-    key "2940ABA983EF826A"
-    keyserver "pgpkeys.mit.edu"
-    action :add
-    notifies :run, resources(:execute => "apt-get update"), :immediately
-  end
+#  apt_repository "opscode" do
+#    uri "http://apt.opscode.com"
+#    components ["main"]
+#    distribution node['lsb']['codename']
+#    key "2940ABA983EF826A"
+#    keyserver "pgpkeys.mit.edu"
+#    action :add
+#    notifies :run, resources(:execute => "apt-get update"), :immediately
+#  end
 
   apt_package 'libgecode-dev' do
     action :install
