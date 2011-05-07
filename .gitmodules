@@ -1,0 +1,3 @@
+[submodule "zwcookbooks"]
+	path = zwcookbooks
+	url = git@github.com:halcyon/zwcookbooks.git

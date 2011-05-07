@@ -56,15 +56,23 @@ Vagrant::Config.run do |config|
   # to this Vagrantfile), and adding some recipes and/or roles.
   #
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = "cookbooks"
+    chef.cookbooks_path = ["cookbooks","zwcookbooks"]
+    chef.add_recipe "apt-cacher-ng"
+    chef.add_recipe "apt-cacher-ng::server"
     chef.add_recipe "chef-server::rubygems-install"
 
     # You may also specify custom JSON attributes:
-    chef.json.merge!({ :chef_server => {
-      :server_url => "http://localhost.localdomain:4000",
-      :webui_enabled => true
+    chef.json.merge!(
+      {
+        :chef_server => {
+          :server_url => "http://localhost.localdomain:4000",
+          :webui_enabled => true
+        },
+        :apt => {
+          :proxy_url => "192.168.1.92:3142"
+        }
       }
-    })
+    )
   end
 
   # Enable provisioning with chef server, specifying the chef server URL,
