@@ -57,8 +57,8 @@ Vagrant::Config.run do |config|
   #
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks","zwcookbooks"]
-    chef.add_recipe "apt-cacher-ng"
     chef.add_recipe "apt-cacher-ng::server"
+    chef.add_recipe "apt-cacher-ng"
     chef.add_recipe "chef-server::rubygems-install"
 
     # You may also specify custom JSON attributes:
