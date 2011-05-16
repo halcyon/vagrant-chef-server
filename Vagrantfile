@@ -69,7 +69,7 @@ Vagrant::Config.run do |config|
           :webui_enabled => true
         },
         :apt => {
-          :proxy_url => "192.168.1.92:3142"
+          :proxy_url => "localhost:3142"
         }
       }
     )
