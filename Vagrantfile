@@ -60,6 +60,7 @@ Vagrant::Config.run do |config|
     chef.add_recipe "apt-cacher-ng::server"
     chef.add_recipe "apt-cacher-ng"
     chef.add_recipe "chef-server::rubygems-install"
+    chef.add_recipe "zw-rvmwrapper"
 
     # You may also specify custom JSON attributes:
     chef.json.merge!(
