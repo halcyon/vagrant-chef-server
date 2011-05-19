@@ -4,8 +4,8 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "vagrant-natty-amd64-ruby-05-06-2011"
-  config.vm.box_url = "http://irulan.homeunix.net/vagrant-natty-amd64-ruby-05-06-2011.box"
+  config.vm.box = "vagrant-natty-amd64-rvm-05-18-2011"
+  config.vm.box_url = "http://zeddworks.com/vagrant-natty-amd64-rvm-05-18-2011.box"
   config.vm.forward_port("chef-server", 4000, 4000, :auto => true)
   config.vm.forward_port("chef-webui", 4040, 4040, :auto => true)
   config.vm.forward_port("apt-proxy", 3142, 3142, :auto => true)
