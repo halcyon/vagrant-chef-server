@@ -1,3 +1,0 @@
-[submodule "zwcookbooks"]
-	path = zwcookbooks
-	url = git://github.com/halcyon/vagrant-chef-server.git
