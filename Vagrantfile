@@ -56,7 +56,7 @@ Vagrant::Config.run do |config|
   # to this Vagrantfile), and adding some recipes and/or roles.
   #
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["cookbooks","zwcookbooks"]
+    chef.cookbooks_path = ["cookbooks","site-cookbooks"]
     chef.add_recipe "apt-cacher-ng::server"
     chef.add_recipe "apt-cacher-ng"
     chef.add_recipe "chef-server::rubygems-install"
