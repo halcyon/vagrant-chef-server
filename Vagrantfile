@@ -66,11 +66,13 @@ Vagrant::Config.run do |config|
     chef.json.merge!(
       {
         :chef_server => {
-          :server_url => "http://localhost.localdomain:4000",
           :webui_enabled => true
         },
         :apt => {
           :proxy_url => "localhost:3142"
+        },
+        :rvm => {
+          :ruby_string => "ree-1.8.7-2011.03"
         }
       }
     )
