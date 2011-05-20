@@ -1,0 +1,26 @@
+{
+  "name": "oel-chef-server",
+  "default_attributes": {
+  },
+  "json_class": "Chef::Role",
+  "env_run_lists": {
+  },
+  "run_list": [
+    "recipe[yum]",
+    "recipe[aegisco]",
+    "recipe[chef-server::rubygems-install]"
+  ],
+  "description": "",
+  "chef_type": "role",
+  "override_attributes": {
+    "chef_server": {
+      "webui_enabled": true
+    },
+    "apt": {
+      "proxy_url": "localhost:3142"
+    },
+    "rvm": {
+      "ruby_string": "ree-1.8.7-2011.03"
+    }
+  }
+}
