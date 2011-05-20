@@ -4,8 +4,8 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  #config.vm.box = "ICE_RHEL56-rvm-05-20-2011"
-  config.vm.box = "vagrant-natty-amd64-rvm-05-19-2011"
+  config.vm.box = "ICE_RHEL56-rvm-05-20-2011"
+  # config.vm.box = "vagrant-natty-amd64-rvm-05-19-2011"
   config.vm.box_url = "http://zeddworks.com/vagrant-natty-amd64-rvm-05-19-2011.box"
   config.vm.forward_port("chef-server", 4000, 4000, :auto => true)
   config.vm.forward_port("chef-webui", 4040, 4040, :auto => true)
@@ -59,23 +59,13 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks","site-cookbooks"]
     chef.roles_path = "roles"
-    chef.add_role "natty-chef-server"
-#    chef.add_role "oel-chef-server"
+  # chef.add_role "natty-chef-server"
+    chef.add_role "oel-chef-server"
 
-    # You may also specify custom JSON attributes:
-#    chef.json.merge!(
-#      {
-#        :chef_server => {
-#          :webui_enabled => true
-#        },
-#        :apt => {
-#          :proxy_url => "localhost:3142"
-#        },
-#        :rvm => {
-#          :ruby_string => "ree-1.8.7-2011.03"
-#        }
-#      }
-#    )
+  #   # You may also specify custom JSON attributes:
+  #   chef.json.merge!({ :mysql_password => "foo" })
+  # end
+
   end
 
   # Enable provisioning with chef server, specifying the chef server URL,
