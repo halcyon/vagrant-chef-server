@@ -6,8 +6,6 @@
   "env_run_lists": {
   },
   "run_list": [
-    "recipe[yum]",
-    "recipe[aegisco]",
     "recipe[chef-server::rubygems-install]"
   ],
   "description": "",
