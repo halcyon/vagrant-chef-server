@@ -59,8 +59,8 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks","site-cookbooks"]
     chef.roles_path = "roles"
-  #  chef.add_role "natty-chef-server"
-    chef.add_role "oel-chef-server"
+    chef.add_role "natty-chef-server"
+  #  chef.add_role "oel-chef-server"
 
   #   # You may also specify custom JSON attributes:
   #   chef.json.merge!({ :mysql_password => "foo" })
