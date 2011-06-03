@@ -6,8 +6,8 @@
   "env_run_lists": {
   },
   "run_list": [
-    "recipe[apt-cacher-ng::server]",
-    "recipe[apt-cacher-ng]",
+    "recipe[zw_apt_cacher_ng::server]",
+    "recipe[zw_apt_cacher_ng]",
     "recipe[chef-server::rubygems-install]"
   ],
   "description": "",
