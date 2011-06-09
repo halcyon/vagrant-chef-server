@@ -4,7 +4,6 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  # config.vm.box = "oel56-rvm-06-01-2011"
   config.vm.box = "vagrant-natty-amd64-rvm-06-08-2011"
   config.vm.box_url = "http://zeddworks.com/vagrant-natty-amd64-rvm-06-08-2011.box"
   config.vm.forward_port("chef-server", 4000, 4000, :auto => true)
