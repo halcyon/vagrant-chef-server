@@ -5,17 +5,23 @@ Vagrant::Config.run do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "vagrant-natty-amd64-rvm-06-08-2011"
-  config.vm.box_url = "http://zeddworks.com/vagrant-natty-amd64-rvm-06-08-2011.box"
+  config.vm.box_url = "http://www.zeddworks.com/vagrant-natty-amd64-rvm-06-08-2011.box"
+
   config.vm.forward_port("chef-server", 4000, 4000, :auto => true)
   config.vm.forward_port("chef-webui", 4040, 4040, :auto => true)
   config.vm.forward_port("apt-proxy", 3142, 3142, :auto => true)
+
   config.vm.customize do |vm|
-    vm.memory_size = 2048
+    vm.memory_size = 1024
   end
 
-  # The url from where the 'config.vm.box' box will be fetched if it
-  # doesn't already exist on the user's system.
-  # config.vm.box_url = "http://domain.com/path/to/above.box"
+  config.vm.share_folder "v-data", "/vagrant_data", "data"
+
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
+    chef.roles_path = "roles"
+    chef.add_role "natty-chef-server"
+  end
 
   # Boot with a GUI so you can see the screen. (Default is headless)
   # config.vm.boot_mode = :gui
@@ -24,19 +30,11 @@ Vagrant::Config.run do |config|
   # via the IP.
   # config.vm.network "33.33.33.10"
 
-  # Forward a port from the guest to the host, which allows for outside
-  # computers to access the VM, whereas host only networking does not.
-  # config.vm.forward_port "http", 80, 8080
-
-  # Share an additional folder to the guest VM. The first argument is
-  # an identifier, the second is the path on the guest to mount the
-  # folder, and the third is the path on the host to the actual folder.
-  # config.vm.share_folder "v-data", "/vagrant_data", "../data"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
   # You will need to create the manifests directory and a manifest in
-  # the file vagrant-natty-amd64-05-04-2011.pp in the manifests_path directory.
+  # the file vagrant-natty-amd64-ruby-05-19-2011.pp in the manifests_path directory.
   #
   # An example Puppet manifest to provision the message of the day:
   #
@@ -49,23 +47,20 @@ Vagrant::Config.run do |config|
   #
   # config.vm.provision :puppet do |puppet|
   #   puppet.manifests_path = "manifests"
-  #   puppet.manifest_file  = "vagrant-natty-amd64-05-04-2011.pp"
+  #   puppet.manifest_file  = "vagrant-natty-amd64-ruby-05-19-2011.pp"
   # end
 
   # Enable provisioning with chef solo, specifying a cookbooks path (relative
   # to this Vagrantfile), and adding some recipes and/or roles.
   #
-  config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["cookbooks","site-cookbooks"]
-    chef.roles_path = "roles"
-    chef.add_role "natty-chef-server"
-  #  chef.add_role "oel-chef-server"
-
+  # config.vm.provision :chef_solo do |chef|
+  #   chef.cookbooks_path = "cookbooks"
+  #   chef.add_recipe "mysql"
+  #   chef.add_role "web"
+  #
   #   # You may also specify custom JSON attributes:
   #   chef.json.merge!({ :mysql_password => "foo" })
   # end
-
-  end
 
   # Enable provisioning with chef server, specifying the chef server URL,
   # and the path to the validation key (relative to this Vagrantfile).
