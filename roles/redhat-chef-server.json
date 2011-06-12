@@ -7,7 +7,7 @@
   },
   "run_list": [
     "recipe[yum]",
-    "recipe[zw_rhelrepos]",
+    "recipe[zw_yumrepos]",
     "recipe[chef-server::rubygems-install]"
   ],
   "description": "",
