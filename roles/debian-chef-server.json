@@ -1,5 +1,5 @@
 {
-  "name": "natty-chef-server",
+  "name": "debian-chef-server",
   "default_attributes": {
   },
   "json_class": "Chef::Role",

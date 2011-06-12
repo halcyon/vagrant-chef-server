@@ -4,8 +4,8 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "vagrant-sid-amd64-rvm-06-11-2011-89d363c"
-  config.vm.box_url = "http://www.zeddworks.com/vagrant-sid-amd64-rvm-06-11-2011-89d363c.box"
+  config.vm.box = "vagrant-sid-amd64-rvm-06-12-2011-661e8f"
+  config.vm.box_url = "http://www.zeddworks.com/vagrant-sid-amd64-rvm-06-12-2011-661e8f.box"
 
   config.vm.forward_port("chef-server", 4000, 4000, :auto => true)
   config.vm.forward_port("chef-webui", 4040, 4040, :auto => true)
@@ -20,7 +20,7 @@ Vagrant::Config.run do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
     chef.roles_path = "roles"
-    chef.add_role "natty-chef-server"
+    chef.add_role "debian-chef-server"
   end
 
   # Boot with a GUI so you can see the screen. (Default is headless)
