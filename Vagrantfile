@@ -4,23 +4,48 @@ Vagrant::Config.run do |config|
   # please see the online documentation at vagrantup.com.
 
   # Every Vagrant virtual environment requires a box to build off of.
-  config.vm.box = "vagrant-sid-amd64-rvm-06-18-2011-661e8f"
-  config.vm.box_url = "http://www.zeddworks.com/vagrant-sid-amd64-rvm-06-18-2011-661e8f.box"
+  config.vm.define :chef_server do |chef_server_config|
+    chef_server_config.vm.box = "vagrant-sid-amd64-rvm-06-18-2011-661e8f"
+    chef_server_config.vm.box_url = "http://www.zeddworks.com/vagrant-sid-amd64-rvm-06-18-2011-661e8f.box"
 
-  config.vm.forward_port("chef-server", 4000, 4000, :auto => true)
-  config.vm.forward_port("chef-webui", 4040, 4040, :auto => true)
-  config.vm.forward_port("apt-proxy", 3142, 3142, :auto => true)
+    chef_server_config.vm.forward_port("chef-server", 4000, 4000, :auto => true)
+    chef_server_config.vm.forward_port("chef-webui", 4040, 4040, :auto => true)
+    chef_server_config.vm.forward_port("apt-proxy", 3142, 3142, :auto => true)
 
-  config.vm.customize do |vm|
-    vm.memory_size = 1024
+    chef_server_config.vm.customize do |vm|
+      vm.memory_size = 1024
+    end
+
+    chef_server_config.vm.network "33.33.33.100"
+
+    #chef_server_config.vm.share_folder "v-data", "/vagrant_data", "data"
+
+    chef_server_config.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
+      chef.roles_path = "roles"
+      chef.add_role "debian-chef-server"
+    end
   end
 
-  config.vm.share_folder "v-data", "/vagrant_data", "data"
+  config.vm.define :chef_client do |chef_client_config|
+    chef_client_config.vm.box = "vagrant-sid-amd64-rvm-06-18-2011-661e8f"
+    chef_client_config.vm.box_url = "http://www.zeddworks.com/vagrant-sid-amd64-rvm-06-18-2011-661e8f.box"
 
-  config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
-    chef.roles_path = "roles"
-    chef.add_role "debian-chef-server"
+    chef_client_config.vm.forward_port "web", 3000, 8080, :auto => true
+
+    chef_client_config.vm.customize do |vm|
+      vm.memory_size = 2048
+    end
+
+    chef_client_config.vm.network "33.33.33.10"
+
+    #chef_client_config.vm.share_folder "v-data", "/vagrant_data", "data"
+
+    chef_client_config.vm.provision :chef_server do |chef|
+      chef.node_name = "vagrant-chef-client"
+      chef.chef_server_url = "http://33.33.33.100:4000"
+      chef.validation_key_path = "#{ENV['HOME']}/.chef/validation.pem"
+    end
   end
 
   # Boot with a GUI so you can see the screen. (Default is headless)
